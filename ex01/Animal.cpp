@@ -6,54 +6,40 @@
 /*   By: andmart2 <andmart2@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 15:10:31 by andmart2          #+#    #+#             */
-/*   Updated: 2025/03/08 15:13:46 by andmart2         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:09:27 by andmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Animal.hpp"
 
-/*	DEFAULT CONSTRUCTOR	*/
-Animal::Animal() : _type("Animal")
-{
-	std::cout << "Animal constructor called" << std::endl;
+Animal::Animal() : _type("Unknown") {
+    std::cout << "Animal created. (Default)" << std::endl;
 }
 
-Animal::Animal(std::string const &type) : _type(type)
-{
-	std::cout << "Animal name constructor called" << std::endl;
+Animal::Animal(const std::string &type) : _type(type) {
+    std::cout << "Animal of type " << _type << " created." << std::endl;
 }
 
-/*	COPY CONSTRUCTOR	*/
-Animal::Animal(const Animal &copy)
-{
-	std::cout << "Animal copy constructor called" << std::endl;
-	*this = copy;
+Animal::Animal(const Animal &animal) {
+    *this = animal;
+    std::cout << "Animal copied." << std::endl;
 }
-		
-/*	COPY ASSIGNMENT OPERATOR OVERLOAD	*/
-Animal& Animal::operator=(const Animal &other)
-{
-	std::cout << "Animal copy assignment operator called" << std::endl;
-	if (this != &other)
-	{
-		_type = other.getType();
-	}
-	return (*this);
+
+Animal &Animal::operator=(const Animal &animal) {
+    if (this != &animal)
+        _type = animal._type;
+    std::cout << "Animal assigned." << std::endl;
+    return *this;
 }
-		
-/*	GETTERS AND SETTERS	*/
-const std::string &Animal::getType(void) const
-{
-	return (_type);
+
+Animal::~Animal() {
+    std::cout << "Animal destroyed." << std::endl;
 }
-		
-/*	MEMBER FUNCTIONS	*/
-void Animal::makeSound() const
-{
-	std::cout << "    *    UNKNOWN SOUND...    *    " << std::endl;
+
+void Animal::makeSound() const {
+    std::cout << "Animal sound!" << std::endl;
 }
-/*	DESTRUCTOR	*/
-Animal::~Animal()
-{
-	std::cout << "Animal Destructor called" << std::endl;
+
+std::string Animal::getType() const {
+    return _type;
 }

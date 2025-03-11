@@ -6,59 +6,42 @@
 /*   By: andmart2 <andmart2@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 15:10:49 by andmart2          #+#    #+#             */
-/*   Updated: 2025/03/08 15:15:21 by andmart2         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:12:12 by andmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cat.hpp"
 
-/*	DEFAULT CONSTRUCTOR	*/
-Cat::Cat() : Animal("Cat")
-{
-	std::cout << "Cat constructor called" << std::endl;
-	_brain = new Brain();
+Cat::Cat() : Animal() {
+    _type = "Cat";
+    _brain = new Brain();
+    std::cout << "Cat created. (Default)" << std::endl;
 }
 
-/*	COPY CONSTRUCTOR	*/
-Cat::Cat(const Cat &copy)
-{
-    std::cout << "Cat copy constructor called" << std::endl;
-    *this = copy;
-}
-		
-/*	COPY ASSIGNMENT OPERATOR OVERLOAD	*/
-Cat& Cat::operator=(const Cat &other)
-{
-    std::cout << "Cat copy assignment operator called" << std::endl;
-	if (this != &other)
-	{
-		_type = other.getType();
-	}
-	return (*this);
-}
-		
-/*	MEMBER FUNCTIONS	*/
-void Cat::makeSound() const
-{
-	std::cout << "    *    MEOW MEOW    *    " << std::endl;
+Cat::Cat(const Cat &cat) : Animal(cat) {
+    _brain = new Brain(*cat._brain);
+    std::cout << "Cat copied." << std::endl;
 }
 
-Brain	*Cat::getBrain() const
-{
-	return (_brain);
+Cat &Cat::operator=(const Cat &cat) {
+    if (this != &cat) {
+        Animal::operator=(cat);
+        delete _brain;
+        _brain = new Brain(*cat._brain);
+    }
+    std::cout << "Cat assigned." << std::endl;
+    return *this;
 }
 
-void	Cat::printBrainIdea(int index) const
-{
-	if (_brain)
-		_brain->printIdea(index);
-	else
-		std::cout << "This dog doesn't have a brain" << std::endl;
+Cat::~Cat() {
+    delete _brain;
+    std::cout << "Cat destroyed." << std::endl;
 }
 
-/*	DESTRUCTOR	*/
-Cat::~Cat()
-{
-	delete _brain;
-	std::cout << "Cat Destructor called" << std::endl;
+void Cat::makeSound() const {
+    std::cout << "Meow! Meow!" << std::endl;
+}
+
+Brain *Cat::getBrain() const {
+    return _brain;
 }

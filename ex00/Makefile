@@ -6,46 +6,32 @@
 #    By: andmart2 <andmart2@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/08 14:48:13 by andmart2          #+#    #+#              #
-#    Updated: 2025/03/08 14:52:49 by andmart2         ###   ########.fr        #
+#    Updated: 2025/03/11 15:07:03 by andmart2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ex00
+NAME = polymorphism
 
-SRC_FILES = Animal.cpp Cat.cpp Dog.cpp main.cpp WrongAnimal.cpp WrongCat.cpp
-
-OBJ_DIR = objs/
-OBJ_FILES = $(SRC_FILES:.cpp=.o)
-OBJS = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
-
-DEP_FILES = $(SRC_FILES:.cpp=.d)
-DEPS = $(addprefix $(OBJ_DIR), $(DEP_FILES))
-
-CC = c++
-CFLAGS = -std=c++98 -Wall -Wextra -Werror -MMD #-fsanitize=address
-RM = rm -f
-INCLUDE = -I ./
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic -fsanitize=address
+SRCS = main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp
+INCLUDES = Animal.hpp Dog.hpp Cat.hpp WrongAnimal.hpp WrongCat.hpp
+OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ_DIR) $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) -o $@
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
-$(OBJ_DIR):
-	mkdir -p $@
-
-$(OBJ_DIR)%.o: %.cpp
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+%.o: %.cpp $(INCLUDES)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(OBJS) $(DEPS)
+	rm -f $(OBJS)
 
 fclean: clean
-	$(RM) -r $(OBJ_DIR)
-	$(RM) $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
-
--include $(DEPS)
 
 .PHONY: all clean fclean re

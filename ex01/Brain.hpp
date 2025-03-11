@@ -6,36 +6,28 @@
 /*   By: andmart2 <andmart2@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 15:10:46 by andmart2          #+#    #+#             */
-/*   Updated: 2025/03/08 15:15:05 by andmart2         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:11:30 by andmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BRAIN_HPP
 #define BRAIN_HPP
 
-# include <iostream>
-//# include <string>
+#include <iostream>
+#include <string>
 
-class Brain
-{
-	private:
-		std::string _ideas[100];
-	public:
-		/*	DEFAULT CONSTRUCTOR	*/
-		Brain();
+class Brain {
+    private:
+        std::string _ideas[100];
 
-		/*	COPY CONSTRUCTOR	*/
-		Brain(const Brain &copy);
-		
-		/*	COPY ASSIGNMENT OPERATOR OVERLOAD	*/
-		Brain& operator=(const Brain &other);
-		
-		/*	GETTERS AND SETTERS	*/
-		void	setIdeas(std::string const idea, int index);
-		void	printIdea(int index) const;
+    public:
+        Brain();
+        Brain(const Brain &brain);
+        Brain &operator=(const Brain &brain);
+        ~Brain();
 
-		/*	DESTRUCTOR	*/
-		~Brain();
+        void setIdea(int index, const std::string &idea);
+        std::string getIdea(int index) const;
 };
 
 #endif

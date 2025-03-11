@@ -6,44 +6,32 @@
 /*   By: andmart2 <andmart2@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 14:48:21 by andmart2          #+#    #+#             */
-/*   Updated: 2025/03/08 14:54:23 by andmart2         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:07:58 by andmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "WrongCat.hpp"
 
-/*	DEFAULT CONSTRUCTOR	*/
-WrongCat::WrongCat() : WrongAnimal("WrongCat")
-{
-	std::cout << "WrongCat constructor called" << std::endl;
+WrongCat::WrongCat() : WrongAnimal() {
+    _type = "WrongCat";
+    std::cout << "WrongCat created. (Default)" << std::endl;
 }
 
-/*	COPY CONSTRUCTOR	*/
-WrongCat::WrongCat(const WrongCat &copy)
-{
-    std::cout << "WrongCat copy constructor called" << std::endl;
-    *this = copy;
-}
-		
-/*	COPY ASSIGNMENT OPERATOR OVERLOAD	*/
-WrongCat& WrongCat::operator=(const WrongCat &other)
-{
-    std::cout << "WrongCat copy assignment operator called" << std::endl;
-	if (this != &other)
-	{
-		_type = other.getType();
-	}
-	return (*this);
-}
-		
-/*	MEMBER FUNCTIONS	*/
-void WrongCat::makeSound() const
-{
-	std::cout << "    *    WRONG MEOW    *    " << std::endl;
+WrongCat::WrongCat(const WrongCat &wrongCat) : WrongAnimal(wrongCat) {
+    std::cout << "WrongCat copied." << std::endl;
 }
 
-/*	DESTRUCTOR	*/
-WrongCat::~WrongCat()
-{
-	std::cout << "WrongCat Destructor called" << std::endl;
+WrongCat &WrongCat::operator=(const WrongCat &wrongCat) {
+    if (this != &wrongCat)
+        WrongAnimal::operator=(wrongCat);
+    std::cout << "WrongCat assigned." << std::endl;
+    return *this;
+}
+
+WrongCat::~WrongCat() {
+    std::cout << "WrongCat destroyed." << std::endl;
+}
+
+void WrongCat::makeSound() const {
+    std::cout << "Meow? (WrongCat sound)" << std::endl;
 }

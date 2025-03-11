@@ -6,43 +6,32 @@
 /*   By: andmart2 <andmart2@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 14:48:06 by andmart2          #+#    #+#             */
-/*   Updated: 2025/03/08 14:52:04 by andmart2         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:06:01 by andmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Dog.hpp"
 
-/*	DEFAULT CONSTRUCTOR	*/
-Dog::Dog() : Animal("Dog")
-{
-	std::cout << "Dog constructor called" << std::endl;
+Dog::Dog() : Animal() {
+    _type = "Dog";
+    std::cout << "Dog created. (Default)" << std::endl;
 }
 
-/*	COPY CONSTRUCTOR	*/
-Dog::Dog(const Dog &copy)
-{
-    std::cout << "Dog copy constructor called" << std::endl;
-    *this = copy;
+Dog::Dog(const Dog &dog): Animal(dog) {
+    std::cout << "Dog copied." << std::endl;
 }
-		
-/*	COPY ASSIGNMENT OPERATOR OVERLOAD	*/
-Dog& Dog::operator=(const Dog &other)
-{
-    std::cout << "Dog copy assignment operator called" << std::endl;
-	if (this != &other)
-	{
-		_type = other.getType();
-	}
-	return (*this);
+
+Dog &Dog::operator=(const Dog &dog) {
+    if (this != &dog)
+        Animal::operator=(dog);
+    std::cout << "Dog assigned." << std::endl;
+    return *this;
 }
-		
-/*	MEMBER FUNCTIONS	*/
-void Dog::makeSound() const
-{
-	std::cout << "    *    WOOF WOOF    *    " << std::endl;
+
+Dog::~Dog() {
+    std::cout << "Dog destroyed." << std::endl;
 }
-/*	DESTRUCTOR	*/
-Dog::~Dog()
-{
-	std::cout << "Dog Destructor called" << std::endl;
+
+void Dog::makeSound() const {
+    std::cout << "Woof! Woof!" << std::endl;
 }

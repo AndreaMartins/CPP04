@@ -6,32 +6,23 @@
 /*   By: andmart2 <andmart2@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 14:41:33 by andmart2          #+#    #+#             */
-/*   Updated: 2025/03/08 14:54:36 by andmart2         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:08:11 by andmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WRONGCAT_HPP
 #define WRONGCAT_HPP
 
-# include "WrongAnimal.hpp"
+#include "WrongAnimal.hpp"
 
-class WrongCat : public WrongAnimal
-{
-    	public:
-		/*	DEFAULT CONSTRUCTOR	*/
-		WrongCat();
-		WrongCat(std::string type);
+class WrongCat : public WrongAnimal {
+    public:
+        WrongCat();
+        WrongCat(const WrongCat &wrongCat);
+        WrongCat &operator=(const WrongCat &wrongCat);
+        ~WrongCat();
 
-		/*	COPY CONSTRUCTOR	*/
-		WrongCat(const WrongCat &copy);
-		
-		/*	COPY ASSIGNMENT OPERATOR OVERLOAD	*/
-		WrongCat& operator=(const WrongCat &other);
-		
-		/*	MEMBER FUNCTIONS	*/
         void makeSound() const;
-		/*	DESTRUCTOR	*/
-		~WrongCat();	
 };
 
 #endif

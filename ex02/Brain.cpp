@@ -6,53 +6,42 @@
 /*   By: andmart2 <andmart2@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:28:44 by andmart2          #+#    #+#             */
-/*   Updated: 2025/03/08 16:31:59 by andmart2         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:41:09 by andmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Brain.hpp"
 
-/*	DEFAULT CONSTRUCTOR	*/
-Brain::Brain()
-{
-	std::cout << "Brain constructor called" << std::endl;
-	for (int i = 0; i < 100; i++)
-		_ideas[i] = "no idea";
+Brain::Brain() {
+    std::cout << "Brain created. (Default)" << std::endl;
 }
 
-/*	COPY CONSTRUCTOR	*/
-Brain::Brain(const Brain &copy)
-{
-	std::cout << "Brain copy constructor called" << std::endl;
-	*this = copy;
-}
-		
-/*	COPY ASSIGNMENT OPERATOR OVERLOAD	*/
-Brain& Brain::operator=(const Brain &other)
-{
-	std::cout << "Brain copy assignment operator called" << std::endl;
-	 for(int i = 0; i < 100; i++)
-        _ideas[i] = other._ideas[i];
-    return(*this);
+Brain::Brain(const Brain &brain) {
+    *this = brain;
+    std::cout << "Brain copied." << std::endl;
 }
 
-void	Brain::setIdeas(std::string const idea, int index)
-{
-	std::cout << "Brain Set Ideas called" << std::endl << "New idea is: "<< idea << std::endl;;
-	_ideas[index] = idea;
+Brain &Brain::operator=(const Brain &brain) {
+    if (this != &brain) {
+        for (int i = 0; i < 100; i++) {
+            _ideas[i] = brain._ideas[i];
+        }
+    }
+    std::cout << "Brain assigned." << std::endl;
+    return *this;
 }
 
-void	Brain::printIdea(int index) const
-{
-	if (index >= 0 && index < 100)
-		std::cout << "Index: " << index << " Idea: " << _ideas[index] << std::endl;
-	else
-		std::cout << "There is no such idea. choose an index between 0 and 99." << std::endl;
-
+Brain::~Brain() {
+    std::cout << "Brain destroyed." << std::endl;
 }
 
-/*	DESTRUCTOR	*/
-Brain::~Brain()
-{
-	std::cout << "Brain destructor called" << std::endl;
+void Brain::setIdea(int index, const std::string &idea) {
+    if (index >= 0 && index < 100)
+        _ideas[index] = idea;
+}
+
+std::string Brain::getIdea(int index) const {
+    if (index >= 0 && index < 100)
+        return _ideas[index];
+    return "Invalid index";
 }

@@ -6,7 +6,7 @@
 /*   By: andmart2 <andmart2@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:41:46 by andmart2          #+#    #+#             */
-/*   Updated: 2025/03/08 16:47:04 by andmart2         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:50:14 by andmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,18 @@
 
 #include "IMateriaSource.hpp"
 
-class MateriaSource : public IMateriaSource
-{
-	private:
-		AMateria* _materias[4];
-	public:
-		/*	DEFAULT CONSTRUCTOR	*/
-		MateriaSource();	
+class MateriaSource : public IMateriaSource {
+    private:
+        AMateria *_materias[4];
+    
+    public:
+        MateriaSource();
+        MateriaSource(const MateriaSource &materiaSource);
+        MateriaSource &operator=(const MateriaSource &materiaSource);
+        virtual ~MateriaSource();
 
-		/*	COPY CONSTRUCTOR	*/
-		MateriaSource(const MateriaSource &copy);
-			
-		/*	COPY ASSIGNMENT OPERATOR OVERLOAD	*/
-		// MateriaSource& operator=(const MateriaSource &other);
-
-		/*	METHODS	*/
-		void learnMateria(AMateria*);
-		AMateria* createMateria(std::string const & type);
-		void printMaterias() const;
-		
-		~MateriaSource();
+        void learnMateria(AMateria *m);
+        AMateria *createMateria(std::string const &type);
 };
 
 #endif

@@ -6,59 +6,42 @@
 /*   By: andmart2 <andmart2@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 15:10:55 by andmart2          #+#    #+#             */
-/*   Updated: 2025/03/08 15:15:57 by andmart2         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:12:48 by andmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Dog.hpp"
 
-/*	DEFAULT CONSTRUCTOR	*/
-Dog::Dog() : Animal("Dog")
-{
-	std::cout << "Dog constructor called" << std::endl;
-	_brain = new Brain();
+Dog::Dog() : Animal() {
+    _type = "Dog";
+    _brain = new Brain();
+    std::cout << "Dog created. (Default)" << std::endl;
 }
 
-/*	COPY CONSTRUCTOR	*/
-Dog::Dog(const Dog &copy)
-{
-    std::cout << "Dog copy constructor called" << std::endl;
-    *this = copy;
-}
-		
-/*	COPY ASSIGNMENT OPERATOR OVERLOAD	*/
-Dog& Dog::operator=(const Dog &other)
-{
-    std::cout << "Dog copy assignment operator called" << std::endl;
-	if (this != &other)
-	{
-		_type = other.getType();
-	}
-	return (*this);
+Dog::Dog(const Dog &dog): Animal(dog) {
+    _brain = new Brain(*dog._brain);
+    std::cout << "Dog copied." << std::endl;
 }
 
-/*	MEMBER FUNCTIONS	*/
-void Dog::makeSound() const
-{
-	std::cout << "    *    WOOF WOOF    *    " << std::endl;
+Dog &Dog::operator=(const Dog &dog) {
+    if (this != &dog) {
+        Animal::operator=(dog);
+        delete _brain;
+        _brain = new Brain(*dog._brain);
+    }
+    std::cout << "Dog assigned." << std::endl;
+    return *this;
 }
 
-Brain	*Dog::getBrain() const
-{
-	return (_brain);
+Dog::~Dog() {
+    delete _brain;
+    std::cout << "Dog destroyed." << std::endl;
 }
 
-void	Dog::printBrainIdea(int index) const
-{
-	if (_brain)
-		_brain->printIdea(index);
-	else
-		std::cout << "This dog doesn't have a brain" << std::endl;
+void Dog::makeSound() const {
+    std::cout << "Woof! Woof!" << std::endl;
 }
 
-/*	DESTRUCTOR	*/
-Dog::~Dog()
-{
-	delete _brain;
-	std::cout << "Dog Destructor called" << std::endl;
+Brain *Dog::getBrain() const {
+    return _brain;
 }

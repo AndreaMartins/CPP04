@@ -6,54 +6,40 @@
 /*   By: andmart2 <andmart2@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 14:48:16 by andmart2          #+#    #+#             */
-/*   Updated: 2025/03/08 14:53:42 by andmart2         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:07:18 by andmart2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "WrongAnimal.hpp"
 
-/*	DEFAULT CONSTRUCTOR	*/
-WrongAnimal::WrongAnimal() : _type("WrongAnimal")
-{
-	std::cout << "WrongAnimal constructor called" << std::endl;
+WrongAnimal::WrongAnimal() : _type("WrongAnimal") {
+    std::cout << "WrongAnimal created. (Default)" << std::endl;
 }
 
-WrongAnimal::WrongAnimal(std::string const &type) : _type(type)
-{
-	std::cout << "WrongAnimal name constructor called" << std::endl;
+WrongAnimal::WrongAnimal(const std::string &type) : _type(type) {
+    std::cout << "WrongAnimal created." << std::endl;
 }
 
-/*	COPY CONSTRUCTOR	*/
-WrongAnimal::WrongAnimal(const WrongAnimal &copy)
-{
-	std::cout << "WrongAnimal copy constructor called" << std::endl;
-	*this = copy;
+WrongAnimal::WrongAnimal(const WrongAnimal &wrongAnimal) {
+    *this = wrongAnimal;
+    std::cout << "WrongAnimal copied." << std::endl;
 }
-		
-/*	COPY ASSIGNMENT OPERATOR OVERLOAD	*/
-WrongAnimal& WrongAnimal::operator=(const WrongAnimal &other)
-{
-	std::cout << "Animal copy assignment operator called" << std::endl;
-	if (this != &other)
-	{
-		_type = other.getType();
-	}
-	return (*this);
+
+WrongAnimal &WrongAnimal::operator=(const WrongAnimal &wrongAnimal) {
+    if (this != &wrongAnimal)
+        _type = wrongAnimal._type;
+    std::cout << "WrongAnimal assigned." << std::endl;
+    return *this;
 }
-		
-/*	GETTERS AND SETTERS	*/
-const std::string &WrongAnimal::getType(void) const
-{
-	return (_type);
+
+WrongAnimal::~WrongAnimal() {
+    std::cout << "WrongAnimal destroyed." << std::endl;
 }
-		
-/*	MEMBER FUNCTIONS	*/
-void WrongAnimal::makeSound() const
-{
-	std::cout << "    *    WRONG UNKNOWN SOUND...    *    " << std::endl;
+
+void WrongAnimal::makeSound() const {
+    std::cout << "WrongAnimal sound." << std::endl;
 }
-/*	DESTRUCTOR	*/
-WrongAnimal::~WrongAnimal()
-{
-	std::cout << "WrongAnimal Destructor called" << std::endl;
+
+std::string WrongAnimal::getType() const {
+    return _type;
 }
